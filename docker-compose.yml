@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    image: document-retrieval-system
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - mongodb
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - MONGO_URI=mongodb://mongodb:27017
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
